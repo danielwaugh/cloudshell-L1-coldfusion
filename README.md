@@ -18,7 +18,7 @@ The driver has been verified with the following devices and software versions:
 1. Extract ColdFusion_L1_Driver.zip to C:\Program Files (x86)\QualiSystems\CloudShell\Server\Drivers
 
 2. Import new Data-Model from C:\Program Files (x86)\QualiSystems\CloudShell\Server\Drivers\cloudshell-L1-
-coldfusion\datamodel\virtual_wire_ResourceConfiguration.xml to the CloudShell
+coldfusion\datamodel\coldfusion_ResourceConfiguration.xml to the CloudShell
 
 3. Create new resource according to the new Data-Model, Create Resource Steps
 
