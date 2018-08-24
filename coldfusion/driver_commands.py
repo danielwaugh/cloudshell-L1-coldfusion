@@ -7,7 +7,7 @@ import requests
 from requests.packages import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
--from cloudshell.layer_one.core.driver_commands_interface import DriverCommandsInterface
+from cloudshell.layer_one.core.driver_commands_interface import DriverCommandsInterface
 from cloudshell.layer_one.core.response.response_info import ResourceDescriptionResponseInfo
 from cloudshell.layer_one.core.response.resource_info.entities.chassis import Chassis
 from cloudshell.layer_one.core.response.resource_info.entities.blade import Blade
