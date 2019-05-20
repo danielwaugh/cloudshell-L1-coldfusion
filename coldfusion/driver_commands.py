@@ -190,23 +190,27 @@ class DriverCommands(DriverCommandsInterface):
                 egress = flows['Ports'][port]['Egress']
                 breakout = ports_json[port]["Breakout"]
                 if breakout:
-                    flow_index = 0
                     for lane in range(4):
                         port_id = self._qport(port+1, lane+1)
                         port_obj = blade[port_id]
-                        if egress!=None and flow_index<len(egress):
-                            eport = self._parse_lport(egress[flow_index])
-                            if _blades.has_key(eport[0]) and len(eport)==3 and eport[2]==lane+1:
-                                port_id = self._qport(eport[1], eport[2])
-                                mapped_to = _blades[eport[0]][port_id]
-                                port_obj.add_mapping(mapped_to)
-                                # self._logger.info("$$$ {0} mapped to {1}".format(port_obj.address, mapped_to.address))
-                                flow_index += 1
+                        for egress_port in egress:
+                            index = min(lane, len(egress_port)-1)
+                            if egress_port[index]!=None and len(egress_port[index])>0:
+                                # self._logger.info("$$$ {0} -> {1}".format(port_obj.address, egress_port[index]))
+                                eport_lc, eport_port, eport_lane = self._parse_lport(egress_port[index])
+                                if len(egress_port)==1:
+                                    eport_lane = lane+1
+                                if _blades.has_key(eport_lc) and eport_lane==lane+1:
+                                    port_id = self._qport(eport_port, eport_lane)
+                                    mapped_to = _blades[eport_lc][port_id]
+                                    port_obj.add_mapping(mapped_to)
+                                    # self._logger.info("$$$ {0} mapped to {1}".format(port_obj.address, mapped_to.address))
+                                    #flow_index += 1
                 else:
                     port_id = self._qport(port+1)
                     port_obj = blade[port_id]
-                    if egress!=None:
-                        eport = self._parse_lport(egress[0])
+                    for egress_port in egress:
+                        eport = self._parse_lport(egress_port[0])
                         if _blades.has_key(eport[0]):
                             port_id = self._qport(eport[1])
                             mapped_to = _blades[eport[0]][port_id]
