@@ -203,7 +203,7 @@ class DriverCommands(DriverCommandsInterface):
                                 if _blades.has_key(eport_lc) and eport_lane==lane+1:
                                     port_id = self._qport(eport_port, eport_lane)
                                     mapped_to = _blades[eport_lc][port_id]
-                                    port_obj.add_mapping(mapped_to)
+                                    mapped_to.add_mapping(port_obj)
                                     self._logger.info("$$$ {0} mapped to {1}".format(port_obj.address, mapped_to.address))
                 else:
                     port_id = self._qport(port+1)
@@ -213,7 +213,7 @@ class DriverCommands(DriverCommandsInterface):
                         if _blades.has_key(eport[0]):
                             port_id = self._qport(eport[1])
                             mapped_to = _blades[eport[0]][port_id]
-                            port_obj.add_mapping(mapped_to)
+                            mapped_to.add_mapping(port_obj)
                             self._logger.info("$$$ {0} mapped to {1}".format(port_obj.address, mapped_to.address))
 
         return ResourceDescriptionResponseInfo([chassis])
