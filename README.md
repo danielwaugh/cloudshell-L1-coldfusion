@@ -89,7 +89,7 @@ This section describes the automation (drivers) associated with the data model. 
 **Note:** You can only activate a TAP connection after activating a parent MapUni/MapBidi connection. 
 
 # Downloading the Shell
-The **ColdFusion** shell is available from the [Github repository](https://github.com/leptonsys/cloudshell-L1-coldfusion/tree/master/dist) page. 
+The **ColdFusion** shell is available from the [Github repository](https://github.com/leptonsys/cloudshell-L1-coldfusion/releases) page. 
 
 The shell comprises:
 
@@ -105,7 +105,7 @@ This section describes how to import the L1 Shell and configure and modify the s
 ### Importing and configuring the shell in CloudShell
 
 **To import and configure the shell in CloudShell:**
-  1. Make sure you have the shell’s zip package. If not, download the shell from the [Github repository](https://github.com/leptonsys/cloudshell-L1-coldfusion/tree/master/dist) page.
+  1. Make sure you have the shell’s zip package. If not, download the shell from the [Github repository](https://github.com/leptonsys/cloudshell-L1-coldfusion/releases) page.
   
   2. Extract the *cloudshell-L1-coldfusion-1.2.0.zip* package to the following location on the Quali Server machine: 
   *C:\Program Files (x86)\QualiSystems\CloudShell\Server\Drivers*
@@ -171,7 +171,7 @@ L1 shells do not have separate Python dependencies files. All dependencies are i
 
 
 # References
-To download and share integrations, see [Github repository](https://github.com/leptonsys/cloudshell-L1-coldfusion/tree/master/dist) page. 
+To download and share integrations, see [Github repository](https://github.com/leptonsys/cloudshell-L1-coldfusion/releases) page. 
 
 For instructional training and documentation, see [Quali University](https://www.quali.com/university/).
 
@@ -183,4 +183,4 @@ To connect with Quali users and experts from around the world, ask questions and
 
 ### What's New
 
-For release updates, see the shell's [Github repository](https://github.com/leptonsys/cloudshell-L1-coldfusion/tree/master/dist) page.
+For release updates, see the shell's [Github releases page](https://github.com/leptonsys/cloudshell-L1-coldfusion/releases) page.
