@@ -163,9 +163,10 @@ class DriverCommands(DriverCommandsInterface):
                 _blades[lc+1] = {}
 
                 ports_json = self.chassis_get("linecards/{0}/ports".format(lc))
-                for port in range(0, 32):
+                for port in range(0, len(ports_json)):
+                    ptype = ports_json[port]["Type"]
                     breakout = ports_json[port]["Breakout"]
-                    if breakout:
+                    if breakout and ptype=="OPort_CF1":
                         for lane in range(4):
                             port_id = self._qport(port + 1, lane + 1)
                             port_serial_number = "{0:02}.{1:01}.{2}".format(lc + 1, port + 1, lane + 1)
@@ -181,15 +182,17 @@ class DriverCommands(DriverCommandsInterface):
 
         # Configure the mappings
         for lc, blade in _blades.items():
-            ports = ["{0}.{1}".format(lc, port) for port in range(1, 33)]
+            ports_json = self.chassis_get("linecards/{0}/ports".format(lc-1))
+            num_ports = len(ports_json)
+            ports = ["{0}.{1}".format(lc, port) for port in range(1, num_ports+1)]
             body = dict(Ports=ports)
             flows = self.chassis_post("show-flow", body)
 #            self._logger.info("@flows for LC-{0}={1}".format(lc,str(flows)))
-            ports_json = self.chassis_get("linecards/{0}/ports".format(lc-1))
-            for port in range(0, 32):
+            for port in range(0, num_ports):
                 egress = flows['Ports'][port]['Egress']
+                ptype = ports_json[port]["Type"]
                 breakout = ports_json[port]["Breakout"]
-                if breakout:
+                if breakout and ptype=="OPort_CF1":
                     for lane in range(4):
                         port_id = self._qport(port+1, lane+1)
                         port_obj = blade[port_id]
@@ -203,7 +206,7 @@ class DriverCommands(DriverCommandsInterface):
                                 if _blades.has_key(eport_lc) and eport_lane==lane+1:
                                     port_id = self._qport(eport_port, eport_lane)
                                     mapped_to = _blades[eport_lc][port_id]
-                                    mapped_to.add_mapping(port_obj)
+                                    mapped_to.chassis_json(port_obj)
                                     self._logger.info("$$$ {0} mapped to {1}".format(port_obj.address, mapped_to.address))
                 else:
                     port_id = self._qport(port+1)
