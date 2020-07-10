@@ -184,3 +184,4 @@ To connect with Quali users and experts from around the world, ask questions and
 ### What's New
 
 For release updates, see the shell's [Github releases page](https://github.com/leptonsys/cloudshell-L1-coldfusion/releases) page.
+
