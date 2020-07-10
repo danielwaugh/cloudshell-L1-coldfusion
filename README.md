@@ -3,9 +3,9 @@
 
 # **Lepton ColdFusion L1 Shell**
 
-Release date: 05/23/2019 
+Release date: 07/08/2020 
 
-Shell version: 1.2.0
+Shell version: 1.3.3
 
 # In This Guide
 
@@ -95,7 +95,7 @@ The shell comprises:
 
 |File name|Description|
 |:---|:---|
-|cloudshell-L1-coldfusion-1.2.0.zip|ColdFusion L1 shell package|
+|cloudshell-L1-coldfusion-1.3.3.zip|ColdFusion L1 shell package|
 |install_driver.bat|ColdFusion shell installation script|
 |coldfusion_ResourceConfiguration.xml|XML file containing the resource structure, attributes and capabilities of the L1 switches of the same vendor|
 
@@ -107,7 +107,7 @@ This section describes how to import the L1 Shell and configure and modify the s
 **To import and configure the shell in CloudShell:**
   1. Make sure you have the shell’s zip package. If not, download the shell from the [Github repository](https://github.com/leptonsys/cloudshell-L1-coldfusion/releases) page.
   
-  2. Extract the *cloudshell-L1-coldfusion-1.2.0.zip* package to the following location on the Quali Server machine: 
+  2. Extract the *cloudshell-L1-coldfusion-1.3.3.zip* package to the following location on the Quali Server machine: 
   *C:\Program Files (x86)\QualiSystems\CloudShell\Server\Drivers*
   
   3. Run the *C:\Program Files (x86)\QualiSystems\CloudShell\Server\Drivers\cloudshell-L1-coldfusion\install_driver.bat* file.
