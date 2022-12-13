@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import requests
+import requests, traceback
 
 # Need to disable the waring, because the chassis certificate is self-signed
 from requests.packages import urllib3
@@ -199,8 +199,9 @@ class DriverCommands(DriverCommandsInterface):
                         for egress_port in egress:
                             index = min(lane, len(egress_port)-1)
                             if egress_port[index]!=None and len(egress_port[index])>0:
-                                # self._logger.info("$$$ {0} -> {1}".format(port_obj.address, egress_port[index]))
-                                eport_lc, eport_port, eport_lane = self._parse_lport(egress_port[index])
+                                self._logger.info("$$$ {0} -> {1} [lane={2}, index={3}]".format(port_obj.address, egress_port[index], lane, index))
+                                eport_lc, eport_port, eport_lane = self._parse_lpt(egress_port[index])
+                                self._logger.info("@ {0} {1} {2}".format(eport_lc, eport_port, eport_lane))
                                 if len(egress_port)==1:
                                     eport_lane = lane+1
                                 if _blades.has_key(eport_lc) and eport_lane==lane+1:
@@ -212,12 +213,18 @@ class DriverCommands(DriverCommandsInterface):
                     port_id = self._qport(port+1)
                     port_obj = blade[port_id]
                     for egress_port in egress:
+                        self._logger.info("$$$ {0} -> {1}".format(port_obj.address, egress_port))
                         eport = self._parse_lport(egress_port[0])
                         if _blades.has_key(eport[0]):
-                            port_id = self._qport(eport[1])
-                            mapped_to = _blades[eport[0]][port_id]
-                            mapped_to.add_mapping(port_obj)
-                            self._logger.info("$$$ {0} mapped to {1}".format(port_obj.address, mapped_to.address))
+                            port_id = self._qport(eport[1], eport[2])
+                            try:
+                                mapped_to = _blades[eport[0]][port_id]
+                                mapped_to.add_mapping(port_obj)
+                                self._logger.info("$$$ {0} mapped to {1}".format(port_obj.address, mapped_to.address))
+                            except Exception:
+                                self._logger.error("$$$ Exception populating mapping - " + traceback.format_exc())
+                                self._logger.info("$$$ _blades[{0}] keys={1}".format(eport[0], sorted(_blades[eport[0]].keys())))
+                                raise
 
         return ResourceDescriptionResponseInfo([chassis])
 
@@ -418,7 +425,7 @@ class DriverCommands(DriverCommandsInterface):
         raise NotImplementedError
 
     def _qport(self, port, lane=None):
-        if lane:
+        if lane and lane>=1:
             return "{0:02}_{1}".format(port, lane)
         else:
             return "{0:02}".format(port)
