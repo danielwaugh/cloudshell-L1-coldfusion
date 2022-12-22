@@ -200,7 +200,7 @@ class DriverCommands(DriverCommandsInterface):
                             index = min(lane, len(egress_port)-1)
                             if egress_port[index]!=None and len(egress_port[index])>0:
                                 self._logger.info("$$$ {0} -> {1} [lane={2}, index={3}]".format(port_obj.address, egress_port[index], lane, index))
-                                eport_lc, eport_port, eport_lane = self._parse_lpt(egress_port[index])
+                                eport_lc, eport_port, eport_lane = self._parse_lport(egress_port[index])
                                 self._logger.info("@ {0} {1} {2}".format(eport_lc, eport_port, eport_lane))
                                 if len(egress_port)==1:
                                     eport_lane = lane+1
