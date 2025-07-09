@@ -60,7 +60,17 @@ class DriverCommands(DriverCommandsInterface):
         self._logger.info("@login to {0}".format(address))
         self._session.auth = (username, password)
         self._address = address
-        self._baseurl = "https://{}:8443".format(self._address)
+        port = 8443
+        try:
+            address_split = self._address.split(":")
+            port = int(address_split[-1])
+            self._address = ":".join(address_split[:-1])
+        except ValueError:
+            port = 8443
+        prepend = "https://"
+        if "https://" in self._address:
+            prepend = ""
+        self._baseurl = "{}{}:{}".format(prepend, self._address, port)
         j = self.system_get("version")
         self._version = j["Version"]
         self._logger.info("$Login succeeded - CF Version {0}".format(self._version))
